@@ -15,24 +15,36 @@
 	const name= "Tyler"
 	const handle= "@tylermcginnis"
 
-		console.log("Test")
-		console.log("React",React)
-		const nameElement = React.createElement(
+
+		//Component is a function or a class which optional receive inputs(props) and return elements
+function NameComponent(props){
+	return React.createElement(
 			'h1', //element i want to create
 			null, // 
-			name
+			props.name
 			)
+}
 
-		const handleElement= React.createElement(
-			"h3",null,handle)
+function HandleComponent(props){
+	return React.createElement(
+			"h3",null,props.handle)
+
+}
+		console.log("Test")
+		console.log("React",React)
+
 
 		const wrapperElement= React.createElement(
 			"div",
 			{id:"container"},
-			nameElement,
-			handleElement)
+			React.createElement(NameComponent,{name:"Gabriel"}),
+			React.createElement(HandleComponent,{handle:"@Dyck"}))
+				console.log("wrapperElement",wrapperElement)
+
 		//Where react is going to draw my element
 		ReactDOM.render(wrapperElement,document.getElementById('app'))
+
+
 	</script>
 </div>
 </body>
