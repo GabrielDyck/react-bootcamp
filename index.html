@@ -12,18 +12,27 @@
 <div id="app">
 	<!-- <h1 id ='header'>Tyler</h1> its the same-->
 	<script>
+	const name= "Tyler"
+	const handle= "@tylermcginnis"
+
 		console.log("Test")
 		console.log("React",React)
-		const headerElement = React.createElement(
+		const nameElement = React.createElement(
 			'h1', //element i want to create
-			{id: 'header'}, // 
-			'Hello World'
+			null, // 
+			name
 			)
 
-		console.log('headerElement', headerElement)
+		const handleElement= React.createElement(
+			"h3",null,handle)
 
+		const wrapperElement= React.createElement(
+			"div",
+			{id:"container"},
+			nameElement,
+			handleElement)
 		//Where react is going to draw my element
-		ReactDOM.render(headerElement,document.getElementById('app'))
+		ReactDOM.render(wrapperElement,document.getElementById('app'))
 	</script>
 </div>
 </body>
