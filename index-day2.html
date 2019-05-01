@@ -28,10 +28,27 @@
         constructor(props){
             super(props)
             this.state= {
-            friends:['Jordyn','Mikenzi', 'Jake']
-        }
+            friends:['Jordyn','Mikenzi', 'Jake'],
+            anotherThing: "asd"
+            }
         }
 
+        handleAddFriend(){
+
+        }
+
+        handleRemoveFriend(name){
+        //If you this, react dont have idea what happend with the state and doest update
+        //And is a external muttation and isnt good functional programming
+        //    this.state.friends= this.state.friends.filter((friends) => friend !==!==name)
+            //Update state () => merge currentState with the new one
+            this.setState((currentState) => {
+                return {
+                    //Only update friends
+                    friends: currentState.friends.filter((friends) => friend !==name)
+                }
+            })
+        }
 
         render (){
             return (
