@@ -13,17 +13,23 @@
 <div id="app" >
 	<script type="text/babel">
 	
-function App(props){
-	
+    function FriendsList(props){
+        return (<ul>
+        {props.list.map((name)=>(
+            <li key={name}>{name}</li>
+        ))}
+        </ul>)
+    }
+function App(){
+	const friends=['Jordyn','Mikenzi', 'Jake']
 	return( 
 		<div>
-Hello {props.name}
-
+            <FriendsList list={friends} />
 	</div>
 	)
 }
 		//Where react is going to draw my element
-		ReactDOM.render(<App name="Tyler"/>,document.getElementById('app'))
+		ReactDOM.render(<App />,document.getElementById('app'))
 
 	</script>
 </div>
