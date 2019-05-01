@@ -16,9 +16,13 @@
         <script type="text/babel">
 
     function FriendsList(props){
+    // () => for save the reference of function to be execute when event onClick is Triggered
         return (<ul>
         {props.list.map((name)=>(
-            <li key={name}>{name}</li>
+            <li key={name}>
+                <span> {name} </span>
+                <button onClick={() =>props.onRemoveFriend(name)}>Remove</button>
+            </li>
         ))}
         </ul>)
     }
@@ -31,6 +35,12 @@
             friends:['Jordyn','Mikenzi', 'Jake'],
             anotherThing: "asd"
             }
+
+            //This must have to do it because, in a event handler, 
+            //the setState called was in the context of props, and props doesnt have setState
+            //if we defined on it, at the creation on component. We NOT want this.
+            //So we set the context of the class to call setState of this ComponentClass
+            this.handleRemoveFriend= this.handleRemoveFriend.bind(this);
         }
 
         handleAddFriend(){
@@ -42,10 +52,11 @@
         //And is a external muttation and isnt good functional programming
         //    this.state.friends= this.state.friends.filter((friends) => friend !==!==name)
             //Update state () => merge currentState with the new one
+            //react always pass currentState to setState function
             this.setState((currentState) => {
                 return {
                     //Only update friends
-                    friends: currentState.friends.filter((friends) => friend !==name)
+                    friends: currentState.friends.filter((friend) => friend !==name)
                 }
             })
         }
@@ -53,7 +64,9 @@
         render (){
             return (
              <div>
-                <FriendsList list={this.state.friends} />
+                <FriendsList list={this.state.friends}
+                //Im passing a function to execute in a component 
+                onRemoveFriend={this.handleRemoveFriend} />
 	        </div>
             )
         }
