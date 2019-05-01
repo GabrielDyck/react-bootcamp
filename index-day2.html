@@ -12,31 +12,18 @@
 <body>
 <div id="app" >
 	<script type="text/babel">
-	const name= "Tyler"
-	const handle= "@tylermcginnis"
-	function NameComponent(props){
-		return <h1>{props.name}</h1>
-	}
-//Component is a function or a class which optional receive inputs(props) and return elements
 	
-
-	function HandleComponent(props){
-		return <h1>{props.handle}</h1>
-}
-
-function App(){
-	console.log("APP")
+function App(props){
+	
 	return( 
-		<div id="container">
-<NameComponent name={name} />
-<HandleComponent handle={handle}/>
+		<div>
+Hello {props.name}
 
 	</div>
 	)
 }
 		//Where react is going to draw my element
-		ReactDOM.render(<App/>,document.getElementById('app'))
-
+		ReactDOM.render(<App name="Tyler"/>,document.getElementById('app'))
 
 	</script>
 </div>
