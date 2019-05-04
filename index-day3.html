@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>First React App</title>
+    <!-- Allow to import React -->
+    <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <!-- Allow to use React Components -->
+    <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+</head>
+
+<body>
+    <div id="app">
+        <script type="text/babel">
+
+    function FriendsList(props){
+    // () => for save the reference of function to be execute when event onClick is Triggered
+        return (<ul>
+        {props.list.map((name)=>(
+            <li key={name}>
+                <span> {name} </span>
+                <button onClick={() =>props.onRemoveFriend(name)}>Remove</button>
+            </li>
+        ))}
+        </ul>)
+    }
+
+    class App extends React.Component{
+
+        constructor(props){
+            super(props)
+            this.state= {
+            friends:['Jordyn','Mikenzi', 'Jake'],
+            input: "",
+
+            }
+
+            //This must have to do it because, in a event handler, 
+            //the setState called was in the context of props, and props doesnt have setState
+            //if we defined on it, at the creation on component. We NOT want this.
+            //So we set the context of the class to call setState of this ComponentClass
+            this.handleRemoveFriend= this.handleRemoveFriend.bind(this);
+            this.handleAddFriend= this.handleAddFriend.bind(this);
+            this.updateInput= this.updateInput.bind(this);
+
+        }
+
+        handleAddFriend(){
+            this.setState((prevState) =>{
+            return {
+                friends: prevState.friends.concat([this.state.input]),
+                input:""
+            }})
+        }
+
+        handleRemoveFriend(name){
+        //If you this, react dont have idea what happend with the state and doest update
+        //And is a external muttation and isnt good functional programming
+        //    this.state.friends= this.state.friends.filter((friends) => friend !==!==name)
+            //Update state () => merge currentState with the new one
+            //react always pass currentState to setState function
+            this.setState((currentState) => {
+                return {
+                    //Only update friends
+                    friends: currentState.friends.filter((friend) => friend !==name)
+                }
+            })
+        }
+
+
+        updateInput(event){
+        const value= event.target.value
+        // if you have to use prevState use this
+        /*this.setState((currentState)=> {
+            input:value
+        })*/
+        //else 
+            this.setState({
+                input:value
+            })
+        }
+        render (){
+            return (
+             <div>
+             <input 
+             type="text"
+             placeholder="new friend"
+             value={this.state.input}
+             //We need to manage the controlcomponent because this.state.input will never be update
+             onChange={this.updateInput}
+             /> 
+
+             <button 
+             onClick={this.handleAddFriend}
+             >Submit </button>  
+                <FriendsList list={this.state.friends}
+                //Im passing a function to execute in a component 
+                onRemoveFriend={this.handleRemoveFriend} />
+	        </div>
+            )
+        }
+    }
+
+		//Where react is going to draw my element
+		ReactDOM.render(<App />,document.getElementById('app'))
+
+	</script>
+    </div>
+</body>
+
+</html>
