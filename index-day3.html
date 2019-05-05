@@ -88,7 +88,7 @@
 
         }
 
-//Where all is mounted into de DOM. We'll used it to fetch data
+//Where all is mounted into de DOM. We'll use it to fetch data
         componentDidMount(){
             console.log("--componentDidMount--")
         }
@@ -96,6 +96,10 @@
 //When react detect a update
         componentDidUpdate(){
             console.log("--componentDidUpdate--")
+        }
+//When react remove the old compount
+        componentWillUnmount(){
+            console.log("--componentWillUnmount--")
         }
 
         handleAddFriend(){
