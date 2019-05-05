@@ -37,6 +37,35 @@
     <div id="app">
         <script type="text/babel">
 
+class Loading extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          text: 'Loading'
+        };
+      }
+      componentDidMount() {
+        const stopper = this.state.text + '...';
+        this.interval = window.setInterval(() => {
+          this.state.text === stopper
+            ? this.setState(() => ({ text: 'Loading' }))
+            : this.setState((prevState) => ({ text: prevState.text + '.' }))
+        }, 300)
+      }
+      componentWillUnmount() {
+          console.log("--LOADING--componentWillUnmount")
+          //set state is calling after the compont was unmount and that us a error. So, when component was unmount just clean the function who calls setState
+        window.clearInterval(this.interval);
+      }
+      render() {
+        return (
+          <p>
+            {this.state.text}
+          </p>
+        )
+      }
+    }
+
     function InactiveFriends(props){
         return (
         <div>
@@ -175,7 +204,7 @@ static getDerivedStateFromProps(){
         //Describe our component
         render (){
             if(this.state.loading){
-                return <h1>LOADING</h1>
+                return <Loading/>
             }
             console.log("--render--")
             return (
