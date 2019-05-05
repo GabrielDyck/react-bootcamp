@@ -8,7 +8,29 @@
     <!-- Allow to use React Components -->
     <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script> window.API= { 
+        fetchFriends(){
+        return new Promise((res,rej) => {
+            const friends= [
+                {
+                        name:'Jordyn',
+                        active:true
+                    },
+                    {
+                        name:'Mikenzi',
+                        active:true
+                    }, 
+                    {
+                        name:'Jake',
+                        active:false
+                    }]
 
+            setTimeout(() => res(friends),2000)
+        })
+        }
+    }
+
+     </script>
 </head>
 
 <body>
@@ -57,21 +79,9 @@
         constructor(props){
             super(props)
             this.state= {
-            friends:[
-                {
-                    name:'Jordyn',
-                    active:true
-                },
-                {
-                    name:'Mikenzi',
-                    active:true
-                }, 
-                {
-                    name:'Jake',
-                    active:false
-                }
-            ],
+            friends:[],
             input: "",
+            loading:true, 
 
             }
 
@@ -88,9 +98,18 @@
 
         }
 
-//Where all is mounted into de DOM. We'll use it to fetch data
+//Where all is mounted into de DOM. We'll use it to fetch data .React teams recomends this
         componentDidMount(){
             console.log("--componentDidMount--")
+            API.fetchFriends()
+            .then((friends)=> {
+                console.log("FRIENDS",friends)
+                this.setState({
+                    friends,
+                    loading:false
+                })
+
+            })
         }
 
 //When react detect a update
@@ -102,6 +121,10 @@
             console.log("--componentWillUnmount--")
         }
 
+//When you want to set localy the props from parent component
+static getDerivedStateFromProps(){
+
+}
         handleAddFriend(){
             this.setState((prevState) =>{
             return {
@@ -151,6 +174,9 @@
         }
         //Describe our component
         render (){
+            if(this.state.loading){
+                return <h1>LOADING</h1>
+            }
             console.log("--render--")
             return (
              <div>
