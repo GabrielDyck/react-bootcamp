@@ -1,0 +1,28 @@
+import logo from './../logo.svg';
+import './../App.css';
+import React,{Component} from 'react'
+import Home from './Home'
+import About from './About'
+import Topics from './Topics'
+import {
+	BrowserRouter,
+	Route,
+	Link,
+} from 'react-router-dom'
+
+class App extends Component {
+  render (){
+    return (
+    <BrowserRouter>
+    <ul>
+    //Be have to wrap this links in BrowserRouter
+    <li><Link to="/"> Home </Link></li>
+    <li><Link to="/about"> About </Link></li>
+    <li><Link to="/topics"> Topics </Link></li>
+    </ul>
+    </BrowserRouter>
+        )
+  }
+}
+
+export default App;
