@@ -18,7 +18,7 @@ export default function Topics ({match}) {
 			</li>
 
 			<li>
-				<Link to={`${match.url}/components}`}>Components</Link>
+				<Link to={`${match.url}/components`}>Components</Link>
 			</li>
 			<li>
 				<Link to={`${match.url}/props-v-state`}>Props vs State</Link>
@@ -28,7 +28,7 @@ export default function Topics ({match}) {
 
 		<hr/>
 
-		<Route exact path="/topics/:topicId" component={Topic} />
+		<Route exact path={`${match.url}/:topicId`} component={Topic} />
 
 
 		</div>)
